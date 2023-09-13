@@ -1,0 +1,83 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+    position: relative;
+    min-height: 100vh;
+    max-width: 100vw;
+}
+
+/** tailwind hatası giderildi*/
+.ant-btn-primary {
+    background-color: #1677ff;
+}
+
+.header-search .ant-input-group-addon:last-child {
+    @apply bg-yellow-400;
+}
+
+.header-search .ant-select-selection-item {
+    color: white;
+}
+
+.sort-option .ant-select-selection-item {
+    color: #000;
+}
+
+.ant-btn.ant-input-search-button {
+    border: none;
+}
+
+.menu-link:hover {
+    color: dodgerblue;
+}
+
+/*! product-list rating filter **/
+.ant-col .ant-checkbox-wrapper .ant-checkbox {
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.ant-rate svg {
+    cursor: pointer;
+}
+
+/**! product-details img*/
+.ant-image-preview-img-wrapper img {
+    width: 80%;
+}
+
+/**! slick-dots */
+ul.slick-dots {
+    margin-bottom: 5px !important;
+}
+.slick-dots button {
+    width: 12px !important;
+    height: 12px !important;
+}
+
+/**! product details - order-details*/
+.ant-select-selection-item {
+    color: #000;
+}
+
+/**! orders */
+.order-details__table table tr {
+    @apply even:!bg-slate-100 odd:!bg-slate-50;
+}
+
+/**! adminlinks */
+@media not all and (min-width: 768px) {
+    ul.ant-menu {
+        @apply flex flex-row flex-wrap justify-center;
+    }
+
+    ul.ant-menu li {
+        @apply max-w-[125px] mx-auto;
+    }
+}
+
+.ant-select-dropdown {
+    @apply !w-[250px];
+}

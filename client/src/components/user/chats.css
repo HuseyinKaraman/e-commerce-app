@@ -1,0 +1,43 @@
+/****** chat-icon *******/
+.chat-btn {
+  @apply fixed z-10 bottom-6 right-4 text-[22px] text-white bg-blue-800 
+    w-[45px] h-[45px] rounded-full cursor-pointer flex justify-center items-center pt-1;
+}
+
+#check {
+  display: none !important;
+}
+
+.chat-btn .close {
+  display: none;
+}
+
+#check:checked ~ .chat-btn .close {
+  display: block;
+}
+
+#check:checked ~ .chat-btn .comment {
+  display: none;
+}
+
+/*********** chat-window ************/
+
+#check:checked ~ .chat-wrapper {
+  display: block;
+}
+
+.chat-wrapper {
+  @apply fixed z-10 bottom-24 right-4 w-[300px] transition-all bg-white rounded-md;
+  display: none
+}
+
+.chat-header {
+  @apply bg-blue-600 p-3 mb-3 rounded-tr-md rounded-tl-md text-white;
+}
+
+
+.chat-form textarea,
+.chat-form button,
+.chat-form .chat-msg{
+    margin-bottom: 12px;
+}
