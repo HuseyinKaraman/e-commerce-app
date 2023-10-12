@@ -8,6 +8,8 @@ Ayrıca populer ve önemli teknolojiler içermektedir Ant Design, Tailwind CSS v
 Projenin Deploy edilmiş ilk hali :: <br/>
 https://ecommerce-frontend-5xm1.onrender.com/
 
+admin: email: admin@admin.com  şifre: admin@admin.com <br/>
+kullanıcı email: test@test.com  şifre: test@test.com
 
 
 Şuanda  Uygulamada Kısaca: <br/>
@@ -16,6 +18,8 @@ Login ve Register işlemleri <br/>
 Paypal ile satın alma işlemi<br/>
 Admin ürün,üye,sipariş işlemleri <br/>
 Admin ürün ekleme,silme,düzenleme işlemleri <br/>
+İstenilen günde verilen sipariş sayısını saatlere göre grafik üzerinde izleme <br/>
+Admin ile kullanıcı mesajlaşma olanagı
 
 
 
