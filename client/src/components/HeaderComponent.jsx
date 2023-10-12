@@ -1,10 +1,12 @@
-import { Input, Select, Badge, Dropdown, Space } from "antd";
-import { Link, NavLink, useNavigate } from "react-router-dom";
-import { ShoppingCartOutlined, DownOutlined } from "@ant-design/icons";
-import { useDispatch, useSelector } from "react-redux";
-import { logout } from "../redux/slicer/user/services";
-import { getCategories } from "../redux/slicer/category/services";
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Input, Select, Badge, Dropdown, Space } from "antd";
+import { ShoppingCartOutlined, DownOutlined } from "@ant-design/icons";
+import { Link, NavLink, useNavigate } from "react-router-dom";
+import socketIOClient from "socket.io-client";
+import { getCategories } from "../redux/slicer/category/services";
+import { logout } from "../redux/slicer/user/services";
+import { setChatRooms, setSocket, setMessageRecieved,removeChatRoom } from "../redux/slicer/chat/chatSlicer";
 
 const { Option } = Select;
 const { Search } = Input;
@@ -14,9 +16,28 @@ const HeaderComponent = () => {
     const itemsCount = useSelector((state) => state.cart.itemsCount);
     const { userInfo } = useSelector((state) => state.user);
     const { categories } = useSelector((state) => state.category);
+    const { isNewMessage } = useSelector((state) => state.adminChat);
     const [searchCategoryToggle, setSearchCategoryToggle] = useState("All");
 
     const navigate = useNavigate();
+
+    useEffect(() => {
+        if (userInfo.isAdmin) {
+            const socket = socketIOClient();
+            socket.emit("admin connected with server", "Admin" + Math.floor(Math.random() * 1000000000));
+            socket.on("server sends message from client to admin", ({ user, message }) => {
+                dispatch(setSocket(socket));
+                dispatch(setChatRooms({ user, message }));
+                dispatch(setMessageRecieved(true));
+            });
+            socket.on("disconnected", ({reason,socketId})=>{
+                dispatch(removeChatRoom(socketId));
+                dispatch(setMessageRecieved(false));
+            })
+            return () => socket.disconnect();
+        }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [userInfo.isAdmin]);
 
     useEffect(() => {
         dispatch(getCategories());
@@ -68,10 +89,10 @@ const HeaderComponent = () => {
             if (searchCategoryToggle === "All") {
                 navigate(`/product-list/search/${value}`);
             } else {
-                navigate(`/product-list/category/${searchCategoryToggle.replaceAl("/", ",")}/search/${value}`);
+                navigate(`/product-list/category/${searchCategoryToggle.replace(/\//g, ",")}/search/${value}`);
             }
         } else if (searchCategoryToggle !== "All") {
-            navigate(`/product-list/category/${searchCategoryToggle.replaceAll("/", ",")}`);
+            navigate(`/product-list/category/${searchCategoryToggle.replace(/\//g, ",")}`);
         } else {
             navigate(`/product-list`);
         }
@@ -96,16 +117,19 @@ const HeaderComponent = () => {
                         />
                     </div>
                 </div>
-                <div className="menu-links flex justify-between md:justify-end md:ml-auto md:gap-x-5 font-semibold w-full md:max-w-[36px] md:min-w-fit">
+                <div className="menu-links flex justify-between md:justify-end md:ml-auto md:gap-x-5 font-semibold w-full md:max-w-[36px] md:min-w-fit items-center">
                     {userInfo?.isAdmin ? (
-                        <Badge count={1} offset={[0, -2]} color="red" size="small" className="my-auto">
+                        <span className="relative">
                             <NavLink
                                 to="/admin/orders"
-                                className={({ isActive }) => (isActive ? "active menu-link" : "menu-link")}
+                                className={({ isActive }) => (isActive ? "active menu-link " : "menu-link")}
                             >
                                 <span className="text-[16px]">Admin</span>
+                                {isNewMessage && (
+                                    <span className="p-[5px] rounded-full bg-red-600 absolute right-[-1px] top-[-2px]"></span>
+                                )}
                             </NavLink>
-                        </Badge>
+                        </span>
                     ) : userInfo?.name && !userInfo?.isAdmin ? (
                         <Dropdown menu={{ items, selectable: true }}>
                             <Space className="!gap-x-1 cursor-pointer">
