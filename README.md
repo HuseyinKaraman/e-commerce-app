@@ -1,4 +1,4 @@
-# Mern STACK - E Commerce Application
+# Mern STACK - E-Commerce Application
 
 <br/>
 Merhaba, Bu proje MERN(MongoDB, Express.js, React.js, Node.js) Stack teknolojisi kullanılarak oluşturulmuştur. 
@@ -6,12 +6,17 @@ Ayrıca populer ve önemli teknolojiler içermektedir Ant Design, Tailwind CSS v
 <br/>
 
 Projenin Deploy edilmiş ilk hali :: <br/>
-
+https://ecommerce-frontend-5xm1.onrender.com/
 
 
 
 Şuanda  Uygulamada Kısaca: <br/>
-Login ve Register işlemleri, <br/>
+Login ve Register işlemleri <br/>
+Ürünleri listeleme,filtreleme işlemleri <br/>
+Paypal ile satın alma işlemi<br/>
+Admin ürün,üye,sipariş işlemleri <br/>
+Admin ürün ekleme,silme,düzenleme işlemleri <br/>
+
 
 
 <h3 align="left">Kullanılan Teknolojiler</h3>
